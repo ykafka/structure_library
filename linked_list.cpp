@@ -28,8 +28,7 @@ void append(struct Node** head, int node_data) {
         return;
     } else {
         //iterating to last available space
-        while (last->next != NULL) {
-            last = last->next;
+        while (last != NULL) {
             last->next = newNode;
             newNode->prev = last;
             return;
@@ -52,12 +51,13 @@ void deleteNode(struct Node **head, int node_val) {
         temp->next->prev == NULL;
         temp->next == NULL;
     } else {
-        while (temp->next != NULL) {
+        while (temp != NULL) {
             if (temp->value == node_val) {
                 temp->prev->next = temp->next;
                 temp->next->prev = temp->prev;
                 temp->prev = NULL;
                 temp->next = NULL;
+                return;
             }
         }
     }
@@ -76,6 +76,6 @@ int main() {
     struct Node* head = NULL;
     append(&head, 20);
     append(&head, 23);
-    deleteNode(&head, 20);
+    deleteNode(&head, 23);
     display(&head);
 }
