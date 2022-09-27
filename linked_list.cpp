@@ -36,14 +36,6 @@ void append(struct Node** head, int node_data) {
     }
 }
 
-//add value after another specified value
-void insertAfter(struct Node* prev_node, int node_data) {
-    struct Node* newNode = new Node;
-    newNode->value = node_data;
-    newNode->next = prev_node->next;
-    newNode->prev = prev_node;
-    prev_node->next = newNode;
-}
 
 void deleteNode(struct Node **head, int node_val) {
     struct Node *temp = *head;
@@ -54,11 +46,14 @@ void deleteNode(struct Node **head, int node_val) {
         while (temp != NULL) {
             if (temp->value == node_val) {
                 temp->prev->next = temp->next;
-                temp->next->prev = temp->prev;
+                if (temp->next != NULL) {
+                    temp->next->prev = temp->prev;
+                }
                 temp->prev = NULL;
                 temp->next = NULL;
                 return;
             }
+            temp = temp->next;
         }
     }
 }
@@ -76,6 +71,7 @@ int main() {
     struct Node* head = NULL;
     append(&head, 20);
     append(&head, 23);
+    append(&head, 33);
     deleteNode(&head, 23);
     display(&head);
 }
