@@ -1,5 +1,3 @@
-//WIP
-
 #include <iostream>
 using namespace std;
 
@@ -13,28 +11,29 @@ struct Node {
 void push(struct Node** head, int node_data) { 
     struct Node *newNode = new Node;
     newNode->value = node_data;
-    newNode->next = (*head);
+    newNode->next = *head;
     newNode->prev = NULL;
-    (*head) = newNode;
+    *head = newNode;
 }
 
 //add value to end
 void append(struct Node** head, int node_data) {
     struct Node *newNode = new Node;
-    struct Node *last = *head;
+    struct Node *last = *head; //for iterating
     newNode->value = node_data;
     newNode->next = NULL;
     //if head/list is null then add new node as head
-    if (*head = NULL) {
+    if (*head == NULL) {
         *head = newNode;
         return;
-    }
-    //iterating to last available space
-    while (last->next != NULL) {
-        last = last->next;
-        last->next = newNode;
-        newNode->prev = last;
-        return;
+    } else {
+        //iterating to last available space
+        while (last->next != NULL) {
+            last = last->next;
+            last->next = newNode;
+            newNode->prev = last;
+            return;
+       }
     }
 }
 
@@ -49,12 +48,17 @@ void insertAfter(struct Node* prev_node, int node_data) {
 
 void deleteNode(struct Node **head, int node_val) {
     struct Node *temp = *head;
-    while (temp->next != NULL) {
-        if (temp->value == node_val) {
-            temp->prev->next = temp->next;
-            temp->next->prev = temp->prev;
-            temp->prev = NULL;
-            temp->next = NULL;
+    if (temp->value == node_val) { //if the node_val is the head
+        temp->next->prev == NULL;
+        temp->next == NULL;
+    } else {
+        while (temp->next != NULL) {
+            if (temp->value == node_val) {
+                temp->prev->next = temp->next;
+                temp->next->prev = temp->prev;
+                temp->prev = NULL;
+                temp->next = NULL;
+            }
         }
     }
 }
@@ -71,5 +75,7 @@ void display(struct Node** head) {
 int main() {
     struct Node* head = NULL;
     append(&head, 20);
+    append(&head, 23);
+    deleteNode(&head, 20);
     display(&head);
 }
