@@ -1,3 +1,5 @@
+//push, append, delete, sort, reverse
+
 #include <iostream>
 using namespace std;
 
@@ -80,6 +82,19 @@ void deleteNode(struct Node **head, int node_val) {
     }
 }
 
+void reverse(struct Node** head) {
+    struct Node *prev = NULL;
+    struct Node *cur = *head;
+    struct Node *nex = cur->next;
+    while (cur != NULL) {
+        nex = cur->next;
+        cur->next = prev;
+        prev = cur;
+        cur = nex;
+    }
+    *head = prev;
+}
+
 //...display...
 void display(struct Node** head) {
     struct Node *last = (*head);
@@ -95,5 +110,6 @@ int main() {
     append(&head, 33);
     append(&head, 322);
     sort(&head);
+    reverse(&head);
     display(&head);
 }
