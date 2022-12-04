@@ -1,0 +1,29 @@
+//recursive depth first traversal
+
+void dfs(int node) {
+  visited[node] = true;
+  for (int next: adj[node]) {
+    if (!visited[next]) {
+      dfs(next);
+    }
+  }
+}
+
+//breadth first traversal
+
+void bfs(int start) {
+  memset(dist, -1, sizeof dist); //fills distance array with -1s)
+  queue<int> q;
+  dist[start] = 0;
+  q.push(start);
+  while(!q.empty()) {
+    int v = q.front();
+    q.pop();
+    for (int e: adj[v]) {
+      if (dist[e] == -1) {
+        dist[e] = dist[v] + 1;
+        q.push(e);
+      }
+    }
+  }
+}
