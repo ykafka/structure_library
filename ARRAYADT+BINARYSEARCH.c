@@ -30,6 +30,19 @@ void insert(struct Array *arr, int index, int x) {
     }
 }
 
+void insertSort(struct Array *arr, int x) {
+    int i = arr->length-1;
+    if (arr->length == arr->size) {
+        return;
+    }
+    while (i >= 0 && arr->A[i] > x) {
+        arr->A[i+1] = arr->A[i];
+        i--;
+    }
+    arr->A[i+1] = x;
+    arr->length++;
+}
+
 int delete(struct Array *arr, int index) {
     int x = 0;
     if (index >= 0 && index <= arr->length-1) {
@@ -43,7 +56,15 @@ int delete(struct Array *arr, int index) {
     return 0;
 }
 
-//basic reverse
+int isSorted(struct Array arr) {
+    for (int i = 0; i < arr.length-1; i++) {
+        if (arr.A[i] > arr.A[i+1]) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
 void reverse(struct Array *arr) {
     int *B;
     int i, j;
@@ -63,7 +84,6 @@ void swap(int *x, int *y) {
     *y = temp;
 }
 
-//using swap
 void reverse2(struct Array *arr) {
     int i, j;
     for (i = 0, j = arr->length-1; i < j; i++, j++) {
